@@ -1,53 +1,66 @@
-<?php
-include "../koneksi.php";
-$query = "SELECT nis from siswa ORDER BY nis DESC LIMIT 1";
-$result = mysqli_query($koneksi,$query);
-$data = mysqli_fetch_assoc($result);
-?>
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Input Data Siswa</title>
+    <meta charset="UTF-8">
+    <title>Tambah Data Siswa</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+        }
+        .card {
+            border-radius: 15px;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Tambah Data Siswa</h1>
+<div class="container d-flex justify-content-center align-items-center vh-100">
 
-<form action="simpan_siswa.php" method="POST">
+    <div class="card shadow p-4" style="width: 400px;">
+        <h3 class="text-center mb-4">➕ Tambah Data Siswa</h3>
 
-    <table>
-        <tr>
-            <td>NIS</td>
-            <td><input type="text" value="<?php echo $data['nis'] + 1 ?>" name="nis" required></td>
-        </tr>
-        <tr>
-            <td>Nama</td>
-            <td><input type="text" name="nama" required></td>
-        </tr>
-        <tr>
-            <td>Alamat</td>
-            <td><input type="text" name="alamat" required></td>
-        </tr>
-        <tr>
-            <td>Kode Kelas</td>
-            <td> <select name="kode_kelas" id="kode_kelas">
-            <?php
-                $query = 'SELECT kode_kelas, nama_kelas FROM kelas';
-                $result = mysqli_query($koneksi, $query);
-                while ($row = mysqli_fetch_assoc($result)){
-                    echo "<option value='".$row['kode_kelas']."'>".$row['kode_kelas']." - ".$row['nama_kelas']."</option>";
-                }
-            ?>
-        </select></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <button type="submit">Simpan</button>
-            </td>
-        </tr>
-    </table>
-</form>
+        <form action="simpan_siswa.php" method="POST">
+
+            <div class="mb-3">
+                <label class="form-label">NIS</label>
+                <input type="text" name="nis" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Nama</label>
+                <input type="text" name="nama" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Alamat</label>
+                <textarea name="alamat" class="form-control" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Kelas</label>
+                <select name="kode_kelas" class="form-select">
+                    <option value="20001">XI RPL 1</option>
+                    <option value="20002">XI RPL 2</option>
+                    <option value="20002">XI RPL 3</option>
+                    <option value="20003">XI TKJ 1</option>
+                    <option value="20003">XI TKJ 2</option>
+                    <option value="20003">XI TKJ 3</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">💾 Simpan</button>
+
+            <a href="lihat_siswa.php" class="btn btn-secondary w-100 mt-2">⬅ Kembali</a>
+
+        </form>
+    </div>
+
+</div>
 
 </body>
 </html>
